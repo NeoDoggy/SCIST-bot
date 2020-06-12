@@ -1,8 +1,10 @@
 //setup
 const {Client, RichEmbed}=require('discord.js');
 const Discord = require('discord.js');
-var client = new Client ;
+const client = new Client ;
 const settings = require('./settings.json');
+const prefix = settings.prefix ;
+const schoolEmoji = require('./schoolEmoji.json') ;
 
 //startup
 client.on('ready', () => {
@@ -10,7 +12,6 @@ client.on('ready', () => {
 	client.user.setActivity("SCIST online !!"); //set status 
 });
 
-const prefix = settings.prefix ;
 //msg 
 client.on('message',msg=>{
 		//new adduser : cmd : /addUserMsg
@@ -18,29 +19,29 @@ client.on('message',msg=>{
 			const embed = new RichEmbed() ;
 			   embed.setTitle("選擇你的學校") ;
 			embed.setColor(2071184) ;
-			embed.setDescription("哈囉！我是身分組(學校)選擇機，請選擇你的學校！\n<:TNFSH:720946074398752870> => 台南一中\n<:TNGS:720946066618581033> => 台南女中\n<:SKSHS:720946067868221501> => 興國高中\n<:CCSHS:720946066782027787> => 家齊高中\n<:TIVS:720946068870660158> => 台南高工\n<:SHHS:720946072553259049> => 新化高中\n<:CYSH:720946072305795124> => 嘉義高中\n<:CYGHS:720946068518600754> => 嘉義女中\n<:CYIVS:720946073086066698> => 嘉義高工\n<:KSHS:720946073857949757> => 高雄中學\n<:FSHS:720946069126774856> => 鳳山高中\n<:KGHS:720946074424180757> => 高雄女中\np.s.再按一次可以取消喔\n一旦選擇學校請勿更換") ;    
+			embed.setDescription(`哈囉！我是身分組(學校)選擇機，請選擇你的學校！\n\n台南：\n<:TNFSH:${schoolEmoji.tnfshID}> => 台南一中    <:TNGS:${schoolEmoji.tngsID}> => 台南女中\n<:SKSHS:${schoolEmoji.skshsID}> => 興國高中    <:CCSHS:${schoolEmoji.ccshsID}> => 家齊高中\n<:TIVS:${schoolEmoji.tivsID}> => 台南高工    <:SHHS:${schoolEmoji.shhsID}> => 新化高中\n\n嘉義：\n<:CYSH:${schoolEmoji.cyshID}> => 嘉義高中    <:CYGHS:${schoolEmoji.cygshID}> => 嘉義女中\n<:CYIVS:${schoolEmoji.cyivsID}> => 嘉義高工\n\n高雄：\n<:KSHS:${schoolEmoji.kshsID}> => 高雄中學    <:FSSH:${schoolEmoji.fsshID}> => 鳳山高中\n<:KGHS:${schoolEmoji.kghsID}> => 高雄女中\n\np.s.再按一次可以取消喔\n注意：一旦選擇學校請勿更換`) ;    
 			msg.channel.send(embed) ;
 			msg.delete(0); 
 	}
 
-	//<:TNGS:720946066618581033> <:TNFSH:720946074398752870> <:TIVS:720946068870660158> <:SKSHS:720946067868221501> <:SHHS:720946072553259049> <:KSHS:720946073857949757> <:KGHS:720946074424180757> <:FSHS:720946069126774856> <:CYSH:720946072305795124> <:CYIVS:720946073086066698> <:CYGHS:720946068518600754> <:CCSHS:720946066782027787>
+	//<:TNGS:720946066618581033> <:TNFSH:720946074398752870> <:TIVS:720946068870660158> <:SKSHS:720946067868221501> <:SHHS:720946072553259049> <:KSHS:720946073857949757> <:KGHS:720946074424180757> <:FSSH:720946069126774856> <:CYSH:720946072305795124> <:CYIVS:720946073086066698> <:CYGHS:720946068518600754> <:CCSHS:720946066782027787>
 
 		if(msg.author.bot){
 			if(msg.embeds){
 					const embedMsg = msg.embeds.find(msg => msg.title === "選擇你的學校")
 					if(embedMsg){
-						embedMsg.message.react("720946074398752870")//tnfsh
-						.then(reaction=>reaction.message.react("720946066618581033"))//tngs
-						.then(reaction=>reaction.message.react("720946067868221501"))//skshs
-				.then(reaction=>reaction.message.react("720946066782027787"))//ccshs
-				.then(reaction=>reaction.message.react("720946068870660158"))//tivs
-				.then(reaction=>reaction.message.react("720946072553259049"))//shhs
-				.then(reaction=>reaction.message.react("720946072305795124"))//cysh
-				.then(reaction=>reaction.message.react("720946068518600754"))//cygsh
-				.then(reaction=>reaction.message.react("720946073086066698"))//cyivs
-				.then(reaction=>reaction.message.react("720946073857949757"))//kshs
-				.then(reaction=>reaction.message.react("720946069126774856"))//fshs
-				.then(reaction=>reaction.message.react("720946074424180757"))//kghs
+						embedMsg.message.react(schoolEmoji.tnfshID)//tnfsh
+						.then(reaction=>reaction.message.react(schoolEmoji.tngsID))//tngs
+						.then(reaction=>reaction.message.react(schoolEmoji.skshsID))//skshs
+						.then(reaction=>reaction.message.react(schoolEmoji.ccshsID))//ccshs
+						.then(reaction=>reaction.message.react(schoolEmoji.tivsID))//tivs
+						.then(reaction=>reaction.message.react(schoolEmoji.shhsID))//shhs
+						.then(reaction=>reaction.message.react(schoolEmoji.cyshID))//cysh
+						.then(reaction=>reaction.message.react(schoolEmoji.cygshID))//cygsh
+						.then(reaction=>reaction.message.react(schoolEmoji.cyivsID))//cyivs
+						.then(reaction=>reaction.message.react(schoolEmoji.kshsID))//kshs
+						.then(reaction=>reaction.message.react(schoolEmoji.fsshID))//fssh
+						.then(reaction=>reaction.message.react(schoolEmoji.kghsID))//kghs
 						.catch(err=>console.error);
 						return ;
 					}
