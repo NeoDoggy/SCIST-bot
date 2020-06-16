@@ -23,78 +23,78 @@ client.on('ready', () => {
 //msg 
 client.on('message',msg=>{
 
-		//backstage
-		//const backstage = msg.guild.channels.find(ch => ch.name === 'backstage');
-		if (msg.channel.id !== '721003450904739880') {
-			console.log(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
-			client.channels.get('721003450904739880').send(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
-		}
+	//backstage
+	//const backstage = msg.guild.channels.find(ch => ch.name === 'backstage');
+	if (msg.channel.id !== '721003450904739880') {
+		console.log(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
+		client.channels.get('721003450904739880').send(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
+	}
 
-		//new adduser : cmd : /addUserMsg
-		if(msg.content.startsWith(prefix+"addUserMsg")){
-			const chooseEB = new RichEmbed()
+	//new adduser : cmd : /addUserMsg
+	if(msg.content.startsWith(prefix+"addUserMsg")){
+		const chooseEB = new RichEmbed()
 			.setTitle("選擇你的學校")
 			.setColor('#99bfcf')
 			.setDescription(`哈囉！我是身分組(學校)選擇機，請選擇你的學校！
-				╭────────────────────╮
-				│台南：
-				│<:TNFSH:${schoolEmoji.tnfshID}> => 台南一中    <:TNGS:${schoolEmoji.tngsID}> => 台南女中
-				│<:SKSHS:${schoolEmoji.skshsID}> => 興國高中    <:CCSHS:${schoolEmoji.ccshsID}> => 家齊高中
-				│<:TIVS:${schoolEmoji.tivsID}> => 台南高工    <:SHHS:${schoolEmoji.shhsID}> => 新化高中
-				│
-				│嘉義：
-				│<:CYSH:${schoolEmoji.cyshID}> => 嘉義高中    <:CYGHS:${schoolEmoji.cygshID}> => 嘉義女中
-				│<:CYIVS:${schoolEmoji.cyivsID}> => 嘉義高工
-				│
-				│高雄：
-				│<:KSHS:${schoolEmoji.kshsID}> => 高雄中學    <:FSSH:${schoolEmoji.fsshID}> => 鳳山高中
-				│<:KGHS:${schoolEmoji.kghsID}> => 高雄女中
-				╰────────────────────╯
-				p.s.再按一次可以取消喔
-				注意：一旦選擇學校請勿更換`)
-				.setFooter('by SCIST admin');  
-			msg.channel.send(chooseEB) ;
-			msg.delete(0); 
+			╭────────────────────╮
+			│台南：
+			│<:TNFSH:${schoolEmoji.tnfshID}> => 台南一中    <:TNGS:${schoolEmoji.tngsID}> => 台南女中
+			│<:SKSHS:${schoolEmoji.skshsID}> => 興國高中    <:CCSHS:${schoolEmoji.ccshsID}> => 家齊高中
+			│<:TIVS:${schoolEmoji.tivsID}> => 台南高工    <:SHHS:${schoolEmoji.shhsID}> => 新化高中
+			│
+			│嘉義：
+			│<:CYSH:${schoolEmoji.cyshID}> => 嘉義高中    <:CYGHS:${schoolEmoji.cygshID}> => 嘉義女中
+			│<:CYIVS:${schoolEmoji.cyivsID}> => 嘉義高工
+			│
+			│高雄：
+			│<:KSHS:${schoolEmoji.kshsID}> => 高雄中學    <:FSSH:${schoolEmoji.fsshID}> => 鳳山高中
+			│<:KGHS:${schoolEmoji.kghsID}> => 高雄女中
+			╰────────────────────╯
+			p.s.再按一次可以取消喔
+			注意：一旦選擇學校請勿更換`)
+			.setFooter('by SCIST admin');  
+		msg.channel.send(chooseEB) ;
+		msg.delete(0); 
 	}
 
 	//<:TNGS:720946066618581033> <:TNFSH:720946074398752870> <:TIVS:720946068870660158> <:SKSHS:720946067868221501> <:SHHS:720946072553259049> <:KSHS:720946073857949757> <:KGHS:720946074424180757> <:FSSH:720946069126774856> <:CYSH:720946072305795124> <:CYIVS:720946073086066698> <:CYGHS:720946068518600754> <:CCSHS:720946066782027787>
 
-		if(msg.author.bot){
-			if(msg.embeds){
-					const embedMsg = msg.embeds.find(msg => msg.title === "選擇你的學校")
-					if(embedMsg){
-						embedMsg.message.react(schoolEmoji.tnfshID)//tnfsh
-						.then(reaction=>reaction.message.react(schoolEmoji.tngsID))//tngs
-						.then(reaction=>reaction.message.react(schoolEmoji.skshsID))//skshs
-						.then(reaction=>reaction.message.react(schoolEmoji.ccshsID))//ccshs
-						.then(reaction=>reaction.message.react(schoolEmoji.tivsID))//tivs
-						.then(reaction=>reaction.message.react(schoolEmoji.shhsID))//shhs
-						.then(reaction=>reaction.message.react(schoolEmoji.cyshID))//cysh
-						.then(reaction=>reaction.message.react(schoolEmoji.cygshID))//cygsh
-						.then(reaction=>reaction.message.react(schoolEmoji.cyivsID))//cyivs
-						.then(reaction=>reaction.message.react(schoolEmoji.kshsID))//kshs
-						.then(reaction=>reaction.message.react(schoolEmoji.fsshID))//fssh
-						.then(reaction=>reaction.message.react(schoolEmoji.kghsID))//kghs
-						.catch(err=>console.error);
-						return ;
-					}
+	if(msg.author.bot){
+		if(msg.embeds){
+			const embedMsg = msg.embeds.find(msg => msg.title === "選擇你的學校")
+			if(embedMsg){
+				embedMsg.message.react(schoolEmoji.tnfshID)//tnfsh
+					.then(reaction=>reaction.message.react(schoolEmoji.tngsID))//tngs
+					.then(reaction=>reaction.message.react(schoolEmoji.skshsID))//skshs
+					.then(reaction=>reaction.message.react(schoolEmoji.ccshsID))//ccshs
+					.then(reaction=>reaction.message.react(schoolEmoji.tivsID))//tivs
+					.then(reaction=>reaction.message.react(schoolEmoji.shhsID))//shhs
+					.then(reaction=>reaction.message.react(schoolEmoji.cyshID))//cysh
+					.then(reaction=>reaction.message.react(schoolEmoji.cygshID))//cygsh
+					.then(reaction=>reaction.message.react(schoolEmoji.cyivsID))//cyivs
+					.then(reaction=>reaction.message.react(schoolEmoji.kshsID))//kshs
+					.then(reaction=>reaction.message.react(schoolEmoji.fsshID))//fssh
+					.then(reaction=>reaction.message.react(schoolEmoji.kghsID))//kghs
+					.catch(err=>console.error);
+				return ;
 			}
 		}
+	}
 		
-		if(msg.content.startsWith(prefix+'DM')){
-			const DT = new Date();
-			const newMemDM = new RichEmbed()
-				.setTitle('歡迎來到SCIST，'+msg.author.username)
-				.setColor('#99bfcf')
-				.setDescription(`嗨囉！
-								歡迎你加入SCIST的Discord伺服器
-								我是伺服器機器人伊醬，請多多指教~
+	if(msg.content.startsWith(prefix+'DM')){
+		const DT = new Date();
+		const newMemDM = new RichEmbed()
+			.setTitle('歡迎來到SCIST，'+msg.author.username)
+			.setColor('#99bfcf')
+			.setDescription(`嗨囉！
+							歡迎你加入SCIST的Discord伺服器
+							我是伺服器機器人伊醬，請多多指教~
 								啊~有件事得跟你講
-								那就是記得先去伺服器新手村的學校選擇機簽到喔
-								連結：https://discord.gg/PMQP7eX`)
-				.setFooter('by SCIST admin'+'    '+DT.getFullYear()+'/'+(DT.getMonth()+1)+'/'+DT.getDate());
-			msg.author.send(newMemDM) ;
-		}
+							那就是記得先去伺服器新手村的學校選擇機簽到喔
+							連結：https://discord.gg/PMQP7eX`)
+			.setFooter('by SCIST admin'+'    '+DT.getFullYear()+'/'+(DT.getMonth()+1)+'/'+DT.getDate());
+		msg.author.send(newMemDM) ;
+	}
 });
 
 //addUserMsg
