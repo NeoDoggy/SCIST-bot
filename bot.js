@@ -246,4 +246,4 @@ client.on('guildMemberAdd', member => {
 });
 
 //login using the bot's token 
-client.login(settings.token); 
+client.login(settings.token);
