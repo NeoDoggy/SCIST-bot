@@ -241,7 +241,7 @@ client.on('guildMemberAdd', member => {
 						啊~有件事得跟你講
 						那就是記得先去伺服器新手村的學校選擇機簽到喔
 						連結：https://discord.gg/PMQP7eX`)
-		.setFooter('by SCIST admin'+'    '+DT.getFullYear()+'/'+(DT.getMonth()+1)+'/'+DT.getDate());
+		.setFooter('by SCIST admin'+'    '+DT());
 	member.send(newMemDM) ;
 });
 
