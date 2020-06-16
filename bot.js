@@ -1,10 +1,18 @@
 //setup
 const {Client, RichEmbed}=require('discord.js');
 const Discord = require('discord.js');
-const client = new Client ;
+const client = new Client() ;
 const settings = require('./settings.json');
 const prefix = settings.prefix ;
 const schoolEmoji = require('./schoolEmoji.json') ;
+
+function DT(){
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    return dateTime ;
+}
 
 //startup
 client.on('ready', () => {
@@ -14,13 +22,38 @@ client.on('ready', () => {
 
 //msg 
 client.on('message',msg=>{
+
+		//backstage
+		//const backstage = msg.guild.channels.find(ch => ch.name === 'backstage');
+		if (msg.channel.id !== '721003450904739880') {
+			console.log(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
+			client.channels.get('721003450904739880').send(`\n[${DT()}] ${msg.author.username} -sent: [${msg}]  userID:${msg.author.id}`) ;
+		}
+
 		//new adduser : cmd : /addUserMsg
 		if(msg.content.startsWith(prefix+"addUserMsg")){
-			const embed = new RichEmbed() ;
-			   embed.setTitle("選擇你的學校") ;
-			embed.setColor(2071184) ;
-			embed.setDescription(`哈囉！我是身分組(學校)選擇機，請選擇你的學校！\n\n台南：\n<:TNFSH:${schoolEmoji.tnfshID}> => 台南一中    <:TNGS:${schoolEmoji.tngsID}> => 台南女中\n<:SKSHS:${schoolEmoji.skshsID}> => 興國高中    <:CCSHS:${schoolEmoji.ccshsID}> => 家齊高中\n<:TIVS:${schoolEmoji.tivsID}> => 台南高工    <:SHHS:${schoolEmoji.shhsID}> => 新化高中\n\n嘉義：\n<:CYSH:${schoolEmoji.cyshID}> => 嘉義高中    <:CYGHS:${schoolEmoji.cygshID}> => 嘉義女中\n<:CYIVS:${schoolEmoji.cyivsID}> => 嘉義高工\n\n高雄：\n<:KSHS:${schoolEmoji.kshsID}> => 高雄中學    <:FSSH:${schoolEmoji.fsshID}> => 鳳山高中\n<:KGHS:${schoolEmoji.kghsID}> => 高雄女中\n\np.s.再按一次可以取消喔\n注意：一旦選擇學校請勿更換`) ;    
-			msg.channel.send(embed) ;
+			const chooseEB = new RichEmbed()
+			.setTitle("選擇你的學校")
+			.setColor('#99bfcf')
+			.setDescription(`哈囉！我是身分組(學校)選擇機，請選擇你的學校！
+				╭────────────────────╮
+				│台南：
+				│<:TNFSH:${schoolEmoji.tnfshID}> => 台南一中    <:TNGS:${schoolEmoji.tngsID}> => 台南女中
+				│<:SKSHS:${schoolEmoji.skshsID}> => 興國高中    <:CCSHS:${schoolEmoji.ccshsID}> => 家齊高中
+				│<:TIVS:${schoolEmoji.tivsID}> => 台南高工    <:SHHS:${schoolEmoji.shhsID}> => 新化高中
+				│
+				│嘉義：
+				│<:CYSH:${schoolEmoji.cyshID}> => 嘉義高中    <:CYGHS:${schoolEmoji.cygshID}> => 嘉義女中
+				│<:CYIVS:${schoolEmoji.cyivsID}> => 嘉義高工
+				│
+				│高雄：
+				│<:KSHS:${schoolEmoji.kshsID}> => 高雄中學    <:FSSH:${schoolEmoji.fsshID}> => 鳳山高中
+				│<:KGHS:${schoolEmoji.kghsID}> => 高雄女中
+				╰────────────────────╯
+				p.s.再按一次可以取消喔
+				注意：一旦選擇學校請勿更換`)
+				.setFooter('by SCIST admin');  
+			msg.channel.send(chooseEB) ;
 			msg.delete(0); 
 	}
 
@@ -47,7 +80,21 @@ client.on('message',msg=>{
 					}
 			}
 		}
-
+		
+		if(msg.content.startsWith(prefix+'DM')){
+			const DT = new Date();
+			const newMemDM = new RichEmbed()
+				.setTitle('歡迎來到SCIST，'+msg.author.username)
+				.setColor('#99bfcf')
+				.setDescription(`嗨囉！
+								歡迎你加入SCIST的Discord伺服器
+								我是伺服器機器人伊醬，請多多指教~
+								啊~有件事得跟你講
+								那就是記得先去伺服器新手村的學校選擇機簽到喔
+								連結：https://discord.gg/PMQP7eX`)
+				.setFooter('by SCIST admin'+'    '+DT.getFullYear()+'/'+(DT.getMonth()+1)+'/'+DT.getDate());
+			msg.author.send(newMemDM) ;
+		}
 });
 
 //addUserMsg
@@ -183,15 +230,20 @@ client.on('messageReactionAdd',(reaction,user)=>{
 
 
 /* Create an event listener for new guild members,the welcome bot main code */
-/*client.on('guildMemberAdd', member => {
-	// Send the message to a designated channel on a server:
-	const channel = member.guild.channels.find(ch => ch.name === '新進人員');
-	// Do nothing if the channel wasn't found on this server
-	if (!channel) return;
-	// Send the message, mentioning the member
-	console.log("${member} added into server").catch(err=>console.error) ;
-	channel.send(`歡迎來到T22的Discord伺服, ${member}\n\`\`\`md\n#貼心提醒\n[進入伺服要做的][請先查看以下頻道]\n1. <#info>\n2. <#注意事項>\n就醬掰\`\`\``);
-});*/
+client.on('guildMemberAdd', member => {
+	console.log(`[${DT()}] ${member.displayName} added into server`) ;
+	const newMemDM = new RichEmbed()
+		.setTitle('歡迎來到SCIST，'+member.displayName)
+		.setColor('#99bfcf')
+		.setDescription(`嗨囉！
+						歡迎你加入SCIST的Discord伺服器
+						我是伺服器機器人伊醬，請多多指教~
+						啊~有件事得跟你講
+						那就是記得先去伺服器新手村的學校選擇機簽到喔
+						連結：https://discord.gg/PMQP7eX`)
+		.setFooter('by SCIST admin'+'    '+DT.getFullYear()+'/'+(DT.getMonth()+1)+'/'+DT.getDate());
+	member.send(newMemDM) ;
+});
 
 //login using the bot's token 
 client.login(settings.token);
